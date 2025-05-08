@@ -1,6 +1,7 @@
 package battleship.model;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 public class ShipPlacement extends Event {
 
@@ -56,6 +57,14 @@ public class ShipPlacement extends Event {
     @Override
     public boolean isShotEvent(final Player player) {
         return false;
+    }
+
+    public Stream<Coordinate> toCoordinates() {
+        final Stream.Builder<Coordinate> result = Stream.builder();
+        for (int i = 0; i < this.type.length; i++) {
+            result.add(this.start.plus(i, this.direction));
+        }
+        return result.build();
     }
 
 }
